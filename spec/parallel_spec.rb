@@ -621,6 +621,13 @@ describe Parallel do
     it "takes the title from :progress[:title] and passes options along" do
       `ruby spec/cases/progress_with_options.rb 2>&1`.should =~ /Reticulating Splines ;+ \d+ ;+/
     end
+
+    # This spec is not passing, the printed string is different than the real
+    # one. I stopped when I saw that the progress.log terminal output is still
+    # messy. This would have to check the full output, not visual output.
+    it "takes a ProgressBar instance and uses the parallel job total" do
+      `ruby spec/cases/progress_with_instance.rb 2>&1`.should =~ /(progress.log output!\r){20}Filling Halflings With Pie 20 ▒+ \d+ ▒+/
+    end
   end
 
   ["lambda", "queue"].each do |thing|
